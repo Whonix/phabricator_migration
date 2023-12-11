@@ -1,5 +1,5 @@
 # Description
-A simple Ruby script for migrating the Phabricator issues to Discourse topics.
+A simple Ruby program for migrating the Phabricator issues to Discourse topics.
 
 ## Requirements
 - Installed version of Ruby 3
