@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This class creates an object from a parsed Phabricator comment
 class Comment
   attr_reader :task_phid, :author_phid, :phid, :date_created, :date_modified, :content
 

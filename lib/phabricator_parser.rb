@@ -4,6 +4,7 @@ require 'uri'
 require 'net/http'
 require 'json'
 
+# This class parses JSON returned from the Phabricator API, and creates Issue, User, and Comments
 class PhabricatorParser
   attr_reader :api_key
 
@@ -78,8 +79,6 @@ class PhabricatorParser
       raw = raw_transactions(after)
       parsed = JSON.parse(raw)
       after = parsed['result']['cursor']['after']
-      require 'debug'
-      debugger
       comments << build_comments(parsed['result']['data'])
       after = 'end' if after.nil?
     end

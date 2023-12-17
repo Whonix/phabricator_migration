@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/comment'
 require './lib/user'
 require './lib/issue'
