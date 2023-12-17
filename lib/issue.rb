@@ -10,6 +10,6 @@ class Issue
     @description = issue_data['description']
     @status = issue_data['status']
     @impact = issue_data['impact']
-    @author_phid = issue_data['author_phid']
+    @author_phid = issue_data['authorPHID']
   end
 end
