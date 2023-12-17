@@ -17,3 +17,11 @@ A simple Ruby program for migrating the Phabricator issues to Discourse topics.
 ## Usage
 
 `$ ruby ./phabricator_migrate.rb`
+
+### Tests
+
+Testing is done with Ruby's built in Minitest framework.
+
+To run them:
+
+`$ rake`
