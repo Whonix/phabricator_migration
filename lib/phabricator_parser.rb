@@ -27,7 +27,7 @@ class PhabricatorParser
       'api.token': api_key
     }
 
-    params['after'] = after if after && after != 'null'
+    params['after'] = after if after && after != 'begin'
     uri.query = URI.encode_www_form(params)
 
     Net::HTTP.get_response(uri).body
@@ -40,7 +40,7 @@ class PhabricatorParser
       'objectType': 'TASK',
       'limit': 1_000_000_000
     }
-    params['after'] = after if after && after != 'null'
+    params['after'] = after if after && after != 'begin'
 
     uri.query = URI.encode_www_form(params)
 
@@ -58,26 +58,30 @@ class PhabricatorParser
 
   def parse_users
     users = []
-    after = 'null'
+    after = 'begin'
 
-    until after.nil?
+    until after == 'end'
       raw = raw_users(after)
       parsed = JSON.parse(raw)
       after = parsed['result']['cursor']['after']
       users << build_users(parsed['result']['data'])
+      after = 'end' if after.nil?
     end
     users.compact.flatten
   end
 
   def parse_transactions
     comments = []
-    after = 'null'
+    after = 'begin'
 
-    until after.nil?
+    until after == 'end'
       raw = raw_transactions(after)
       parsed = JSON.parse(raw)
       after = parsed['result']['cursor']['after']
+      require 'debug'
+      debugger
       comments << build_comments(parsed['result']['data'])
+      after = 'end' if after.nil?
     end
     comments.flatten
   end
