@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This class creates an object from a parsed Phabricator user
 class User
   attr_reader :username, :phid, :id
 
