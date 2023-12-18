@@ -2,9 +2,6 @@
 
 require 'test_helper'
 
-PHAB_KEY = ENV['PHAB_KEY']
-PHAB_HOST = ENV['PHAB_HOST']
-
 class PhabricatorParserTest < Minitest::Test
   def setup
     @parser = PhabricatorParser.new(PHAB_KEY)

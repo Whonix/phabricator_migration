@@ -10,9 +10,13 @@ require 'webmock'
 require './lib/comment'
 require './lib/user'
 require './lib/issue'
+require './lib/formatter'
 require './lib/phabricator_parser'
 
 Dotenv.load
+
+PHAB_KEY = ENV['PHAB_KEY']
+PHAB_HOST = ENV['PHAB_HOST']
 
 VCR.configure do |config|
   config.cassette_library_dir = 'fixtures/vcr_cassettes'

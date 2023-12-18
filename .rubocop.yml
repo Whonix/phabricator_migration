@@ -1,0 +1,11 @@
+Metrics/MethodLength:
+  Exclude:
+    - './test/**/*'
+
+Metrics/AbcSize:
+  Exclude:
+    - './test/**/*'
+
+Layout/LineLength:
+  Exclude:
+    - './test/**/*'
