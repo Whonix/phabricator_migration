@@ -16,7 +16,9 @@ A simple Ruby program for migrating the Phabricator issues to Discourse topics.
 
 ## Usage
 
-`$ ruby ./phabricator_migrate.rb`
+`$ ruby ./phabricator_export.rb`
+
+This outputs a JSON file `./discourse_migration_data.json`
 
 ### Tests
 

@@ -4,6 +4,7 @@ require './lib/comment'
 require './lib/issue'
 require './lib/phabricator_parser'
 require './lib/user'
+require './lib/formatter'
 
 puts 'Please enter your Phabricator API key'
 PHAB_KEY = gets.chomp
