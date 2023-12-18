@@ -23,29 +23,15 @@ PHAB_HOST = gets.chomp
 # puts 'Please enter your desired Tags for your Discourse topics as a comma seperated list'
 # TAGS = gets.chomp
 
-phabricator_issues = PhabricatorParser.new(PHAB_KEY).parse_issues
-phabricator_issues.each do |issue|
-  puts issue.id
-  puts issue.phid
-  puts issue.title
-  puts issue.description
-end
+issues = PhabricatorParser.new(PHAB_KEY).parse_issues
 
-phabricator_users = PhabricatorParser.new(PHAB_KEY).parse_users
-phabricator_users.each do |user|
-  puts user.id
-  puts user.phid
-  puts user.username
-end
+users = PhabricatorParser.new(PHAB_KEY).parse_users
 
-phabricator_comments = PhabricatorParser.new(PHAB_KEY).parse_transactions
-phabricator_comments.each do |comment|
-  puts comment.phid
-  puts comment.author_phid
-  puts comment.task_phid
-  puts comment.content
-end
+comments = PhabricatorParser.new(PHAB_KEY).parse_transactions
 
+formatter = Formatter.new(issues, comments, users)
+formatter.format_data
+formatter.write_file('./discourse_migrate.json')
 # TODO: create a large json payload of relevant data to post to discourse
 # write it to a text file with all the data
 # something like this

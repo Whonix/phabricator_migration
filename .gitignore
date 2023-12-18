@@ -1,2 +1,3 @@
 .env
 test/data/formatted_file.json
+discourse_migrate.json
