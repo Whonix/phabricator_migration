@@ -8,10 +8,11 @@ require 'vcr'
 require 'webmock'
 
 require './lib/comment'
-require './lib/user'
-require './lib/issue'
+require './lib/discourse_migrator'
 require './lib/formatter'
+require './lib/issue'
 require './lib/phabricator_parser'
+require './lib/user'
 
 Dotenv.load
 

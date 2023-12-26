@@ -20,8 +20,9 @@ class FormatterTest < Minitest::Test
   end
 
   def test_it_formats_data
-    formatted_data = @formatter.format_data
-    task = formatted_data['PHID-TASK-hjxtpmlmudn7crk2qmnv']
+    @formatter.link_export_data
+    formatted_data = @formatter.linked_export_data
+    task = formatted_data.select { |t| t[:phid] == 'PHID-TASK-hjxtpmlmudn7crk2qmnv' }.first
 
     assert_equal '553', task[:id]
     assert_equal 'Emergency Crash Script to Protect Host FDE', task[:title]
@@ -47,6 +48,6 @@ class FormatterTest < Minitest::Test
 
     @formatter.write_file(path)
     written_json = JSON.parse(File.read(path))
-    assert_equal @formatter.formatted_data, written_json
+    assert_equal @formatter.linked_export_data, written_json
   end
 end
