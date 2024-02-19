@@ -18,14 +18,23 @@ class DiscourseMigrator
   def migrate_data
     @formatted_import_data.each do |issue|
       @logs = read_logs
-      if @logs.keys.include?(issue['phid']) && @logs[issue['phid']] == 'completed'
-        puts "Skipping #{issue['phid']}" && break
-      end
+      duplicate = handle_duplicates(issue['phid'])
+      next if duplicate
+
+      sleep 1
       req = build_post_request(issue)
       res = post_topic(req)
-      debugger
       handle_response(res, issue['phid'])
-      debugger
+    end
+  end
+
+  def handle_duplicates(phid)
+    if @logs.keys.include?(phid) && @logs[phid] == 'completed'
+      puts "Skipping #{phid}"
+      true
+    else
+      puts "Posting #{phid}"
+      false
     end
   end
 
@@ -61,7 +70,7 @@ class DiscourseMigrator
       'title': issue['title'],
       'category': 25,
       'raw': raw,
-      'tags': [map_tags(issue['status'])]
+      'tags[]': map_tags(issue['status'])
     }
   end
 
