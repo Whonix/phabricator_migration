@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require 'uri'
 require 'net/http'
 require 'json'
 require 'erb'
 
+# This class posts Discourse topics by parsing a JSON file created by the Formatter
 class DiscourseMigrator
   attr_reader :formatted_import_data
 
