@@ -1,5 +1,5 @@
 # Description
-A simple Ruby program for migrating the Phabricator issues to Discourse topics.
+A Ruby program for migrating the Phabricator issues to Discourse topics.
 
 ## Requirements
 - Installed version of Ruby 3
@@ -16,9 +16,20 @@ A simple Ruby program for migrating the Phabricator issues to Discourse topics.
 
 ## Usage
 
-`$ ruby ./phabricator_export.rb`
+1. Create a file `.env` with the following content
+```
+PHAB_KEY=<Phabricator Conduit API key>
+DISCOURSE_KEY=<Discourse API key>
+PHAB_HOST='phabricator.whonix.org'
+```
 
-This outputs a JSON file `./discourse_migration_data.json`
+2. Ensure that Discourse has an appropriate rate limit for post requests. For us, 1000 a minute is probably ample.
+
+3. `$ ruby ./phabricator_export.rb` which outputs a JSON file `./discourse_migration_data.json`
+
+4. `$ ruby ./discourse_import.rb`
+
+5. Tada!
 
 ### Tests
 
