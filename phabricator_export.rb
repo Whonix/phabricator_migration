@@ -35,11 +35,7 @@ comments = PhabricatorParser.new(PHAB_KEY).parse_transactions
 
 puts 'Formatting Phabricator data...'
 formatter = Formatter.new(issues, comments, users)
-formatter.format_data
+formatter.link_export_data
 
 puts 'Writing migration data as JSON...'
 formatter.write_file('./discourse_migration_data.json')
-
-# TODO: have the DiscoursePoster read the file
-# make an API call to discourse to create a topic and tags for issues
-# make sure to slim this file down to only a few issues for testing...nuke them, then do it live
