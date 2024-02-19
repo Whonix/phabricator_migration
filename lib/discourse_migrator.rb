@@ -24,19 +24,16 @@ class DiscourseMigrator
       duplicate = handle_duplicates(issue['phid'])
       next if duplicate
 
-      sleep 1
       req = build_post_request(issue)
       res = post_topic(req)
-      handle_response(res, issue['phid'])
+      handle_response(res, issue)
     end
   end
 
   def handle_duplicates(phid)
     if @logs.keys.include?(phid) && @logs[phid] == 'completed'
-      puts "Skipping #{phid}"
       true
     else
-      puts "Posting #{phid}"
       false
     end
   end
@@ -47,14 +44,16 @@ class DiscourseMigrator
     end
   end
 
-  def handle_response(res, phid)
+  def handle_response(res, issue)
     case res
     when Net::HTTPSuccess
-      @logs[phid] = 'completed'
+      @logs[issue['phid']] = 'completed'
       File.write('./logs/migration.log', @logs.to_json)
     else
-      res.value
-      raise "Issue #{phid} failed to post"
+      puts res.body
+      puts issue['phid']
+      puts issue['title']
+      sleep 10 if res.code == '429'
     end
   end
 
@@ -70,11 +69,17 @@ class DiscourseMigrator
 
   def form_data(issue, raw)
     {
-      'title': issue['title'],
+      'title': handle_title(issue['title']),
       'category': 25,
       'raw': raw,
       'tags[]': map_tags(issue['status'])
     }
+  end
+
+  def handle_title(title)
+    return title unless title.size < 15
+
+    "#{title} (TITLE LENGTH EXTENDED)"
   end
 
   def map_tags(status)
